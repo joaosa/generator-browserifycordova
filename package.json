@@ -1,17 +1,15 @@
 {
   "name": "generator-browserifycordova",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A generator for Yeoman",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "cordova",
+    "browserify"
   ],
   "homepage": "https://github.com/joaosa/generator-browserifycordova",
   "bugs": "https://github.com/joaosa/generator-browserifycordova/issues",
-  "author": {
-    "name": "João Sousa Andrade",
-    "email": "",
-    "url": "https://github.com/joaosa"
-  },
+  "author": "João Sousa Andrade (https://github.com/joaosa)",
   "main": "app/index.js",
   "repository": {
     "type": "git",
@@ -21,6 +19,8 @@
     "test": "mocha"
   },
   "dependencies": {
+    "util" : "*",
+    "path" : "*",
     "yeoman-generator": "~0.13.0",
     "git-config": "0.0.3",
     "cordova": "~3.1.0-0.1.0"
@@ -35,9 +35,10 @@
     "node": ">=0.8.0",
     "npm": ">=1.2.10"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ]
+  "gitHead": "367811ad15b0aa1d34563b560ee765cc58ab5d1f",
+  "readmeFilename": "README.md",
+  "directories": {
+    "test": "test"
+  },
+  "license": "MIT"
 }
