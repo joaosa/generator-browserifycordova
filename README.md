@@ -6,7 +6,7 @@ Voilá! Problem solved.
 
 Your browserifiable apps can now be wrapped by Apache Cordova and live on the mobile side of life, while you can code in a perfectly normal Node.js Grunt project layout.
 
-This [Yeoman](http://yeoman.io) generator was based on [[eugeneware/generator-nodejs](https://github.com/eugeneware/generator-nodejs), [yeoman/generator-node](https://github.com/yeoman/generator-nodel) and [dangeross/generator-cordova](https://github.com/dangeross/generator-cordova).
+This [Yeoman](http://yeoman.io) generator was based on [eugeneware/generator-nodejs](https://github.com/eugeneware/generator-nodejs), [yeoman/generator-node](https://github.com/yeoman/generator-nodel) and [dangeross/generator-cordova](https://github.com/dangeross/generator-cordova).
 
 ## Getting Started
 
