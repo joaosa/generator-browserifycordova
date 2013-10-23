@@ -1,0 +1,37 @@
+{
+  "name": "<%= projectName %>",
+  "version": "0.0.0",
+  "main": "lib/<%= projectName %>.js",
+  "description": "<%= props.description %>",
+  "homepage": "<%= props.homepage %>",
+  "bugs": "<%= repoURL %>/issues",
+  "author": {
+    "name": "<%= props.authorName %>",
+    "email": "<%= props.authorEmail %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "<%= repoURL %>"
+  },
+  "licenses": [{
+      "type": "<%= props.license %>",
+      "url": "<%= repoURL %>/blob/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "test": "grunt simplemocha"
+  },
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "grunt-simple-mocha": "*",
+    "chai": "*",
+    "grunt-browserify": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-shell": "*",
+    "grunt-contrib-connect": "*",
+    "cordova": "*"
+  }
+}
