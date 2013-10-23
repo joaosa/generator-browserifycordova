@@ -107,6 +107,7 @@ BrowserifycordovaGenerator.prototype.build = function build() {
   var cb = this.async();
   cordova.create(cordovaPath, this.packageName, this.projectName, (function(self) {
     self.template('config.xml', 'cordova/www/config.xml');
+    self.template('index.html', 'cordova/www/index.html');
     cb();
   }(this)));
 };
