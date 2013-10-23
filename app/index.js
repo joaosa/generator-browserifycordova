@@ -78,12 +78,12 @@ BrowserifycordovaGenerator.prototype.askFor = function askFor() {
 
 BrowserifycordovaGenerator.prototype.lib = function lib() {
   this.mkdir('lib');
-  this.template('lib/project.js', 'lib/' + this.projectName + '.js');
+  this.template(path.join('lib', 'project.js'), path.join('lib', this.projectName + '.js'));
 };
 
 BrowserifycordovaGenerator.prototype.test = function test() {
   this.mkdir('test');
-  this.template('test/project_test.js', 'test/' + this.projectName + '_test.js');
+  this.template(path.join('test', 'project_test.js'), path.join('test', this.projectName + '_test.js'));
 };
 
 BrowserifycordovaGenerator.prototype.files = function files() {
@@ -106,8 +106,8 @@ BrowserifycordovaGenerator.prototype.build = function build() {
 
   var cb = this.async();
   cordova.create(cordovaPath, this.packageName, this.projectName, (function(self) {
-    self.template('config.xml', 'cordova/www/config.xml');
-    self.template('index.html', 'cordova/www/index.html');
+    self.template('config.xml', path.join(cordovaPath, 'www', 'config.xml'));
+    self.template('index.html', path.join(cordovaPath, 'www', 'index.html'));
     cb();
   }(this)));
 };
