@@ -1,35 +1,21 @@
 # generator-browserifycordova [![Build Status](https://secure.travis-ci.org/joaosa/generator-browserifycordova.png?branch=master)](https://travis-ci.org/joaosa/generator-browserifycordova)
 
-A generator for [Yeoman](http://yeoman.io).
-
 Feeling uneasy when your perfectly good browserifiable apps have to fit into a Cordova-specific layout?
+
 Voilá! Problem solved.
 
 Your browserifiable apps can now be wrapped by Apache Cordova and live on the mobile side of life, while you can code in a perfectly normal Node.js Grunt project layout.
 
-This generator was based on [[eugeneware/generator-nodejs](https://github.com/eugeneware/generator-nodejs), yeoman/generator-node](https://github.com/yeoman/generator-nodel) and [dangeross/generator-cordova](https://github.com/dangeross/generator-cordova).
+This generator was based on [[eugeneware/generator-nodejs](https://github.com/eugeneware/generator-nodejs), [yeoman/generator-node](https://github.com/yeoman/generator-nodel) and [dangeross/generator-cordova](https://github.com/dangeross/generator-cordova).
+
+A generator for [Yeoman](http://yeoman.io).
 
 ## Getting Started
 
-Install the SDKs you want (i.e. Android, iOS, etc).
-
-Install Apache Cordova with: `npm install -g cordova`
-
-Install and run the generator. Instructions below.
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```
-$ npm install -g yo
-```
+- Firstly install:
+  - the SDKs you fancy (i.e. Android, iOS, FirefoxOS, etc)
+  - Apache Cordova `npm install -g cordova`
+  - Yo `$ npm install -g yo`
 
 ### Yeoman Generators
 
