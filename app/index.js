@@ -66,6 +66,7 @@ BrowserifycordovaGenerator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function(props) {
     this.projectName = this._.slugify(props.name);
+    this.camelName = this._.camelize(props.name);
     this.repoURL = props.homepage;
     this.currentYear = new Date().getFullYear();
     this.packageName = 'org.' + props.authorName.toLowerCase().split(' ').sort(-1).join('.');
