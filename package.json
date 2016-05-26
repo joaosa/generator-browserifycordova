@@ -19,8 +19,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "util": "*",
-    "path": "*",
     "yeoman-generator": "~0.13.0",
     "git-config": "0.0.3",
     "cordova": "~3.1.0-0.1.0"
