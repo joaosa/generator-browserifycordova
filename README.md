@@ -26,7 +26,7 @@ $ npm install -g generator-browserifycordova
 - Finally, initiate the generator:
 
 ```
-$ yo browserifycordova
+yo browserifycordova
 ```
 
 ## Getting To Know Yeoman

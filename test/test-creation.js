@@ -1,9 +1,7 @@
-/*global describe, beforeEach, it*/
 'use strict';
 
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
-
 
 describe('browserifycordova generator', function () {
   beforeEach(function (done) {
@@ -27,7 +25,7 @@ describe('browserifycordova generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      'someOption': true
+      someOption: true
     });
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
