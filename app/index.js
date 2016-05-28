@@ -1,5 +1,6 @@
 'use strict';
 
+const mkdirp = require('mkdirp');
 const path = require('path');
 const generators = require('yeoman-generator');
 const gitconfig = require('git-config');
@@ -79,18 +80,23 @@ class Generator extends generators.Base {
       ['index.html', 'cordova/www/index.html']
     ]);
 
-    // build
-    const cordovaPath = this.destinationPath('cordova');
-    const cordovaSetup = this.fs.exists(`${cordovaPath}/config.xml`);
-    const setupCall = cordovaSetup ? () => {
+    // build Cordova first, so we can override its settings afterwards
+    const cordovaPath = this.destinationPath('dist/cordova');
+    const isCordovaSetUp = this.fs.exists(`${cordovaPath}/config.xml`);
+
+    const setupCordova = isCordovaSetUp ? () => {
       this.log('A cordova project is already setup.');
-    } : cordova.create.bind(cordova, cordovaPath, this.packageName, this.projectName);
+    } : () => {
+      mkdirp.sync('dist');
+      cordova.create(cordovaPath, this.packageName, this.projectName);
+    }
 
-    setupCall();
+    setupCordova();
 
+    // setup all templates files
     for (var [key, value] of files.entries()) {
       const src = this.templatePath(key);
-      const dest = this.destinationPath(value);
+      const dest = this.destinationPath(`dist/${value}`);
       this.fs.copyTpl(src, dest, this.props);
     }
   }
