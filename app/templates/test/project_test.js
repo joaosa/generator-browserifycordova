@@ -2,11 +2,11 @@
 
 require('chai').should();
 
-var <%= camelName %> = require('../lib/<%= projectName %>.js');
+const <%= camelName %> = require('../lib/<%= projectName %>.js');
 
-describe('<%= props.name %>', function() {
-  describe('#awesome()', function() {
-    it('should be awesome', function() {
+describe('<%= name %>', () => {
+  describe('#awesome()', () => {
+    it('should be awesome', () => {
       <%= camelName %>.awesome().should.equal('awesome');
     });
   });

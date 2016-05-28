@@ -2,10 +2,10 @@
 <widget id="<%= packageName %>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name><%= projectName %></name>
     <description>
-      <%= props.description %>
+      <%= description %>
     </description>
-    <author email="<%= props.authorEmail  %>" href="<%= props.homepage %>">
-      <%= props.authorName %>
+    <author email="<%= authorEmail  %>" href="<%= homepage %>">
+      <%= authorName %>
     </author>
     <content src="index.html" />
     <access origin="*" />

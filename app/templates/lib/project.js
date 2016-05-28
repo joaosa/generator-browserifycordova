@@ -1,9 +1,9 @@
 /*
- * <%= props.name %>
- * <%= props.homepage %>
+ * <%= name %>
+ * <%= homepage %>
  *
- * Copyright (c) <%= currentYear %> <%= props.authorName %>
- * Licensed under the <%= props.license %> license.
+ * Copyright (c) <%= currentYear %> <%= authorName %>
+ * Licensed under the <%= license %> license.
  */
 
 'use strict';
