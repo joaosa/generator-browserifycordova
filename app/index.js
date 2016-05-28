@@ -60,12 +60,12 @@ class Generator extends generators.Base {
       });
     });
   }
-  writing() {
-    const files = new Map([
+  static getFiles(projectName) {
+    return new Map([
       // lib
-      ['lib/project.js', `lib/${this.props.projectName}.js`],
+      ['lib/project.js', `lib/${projectName}.js`],
       // test
-      ['test/project_test.js', `test/${this.props.projectName}_test.js`],
+      ['test/project_test.js', `test/${projectName}_test.js`],
       // config
       ['editorconfig', '.editorconfig'],
       ['travis.yml', '.travis.yml'],
@@ -79,6 +79,8 @@ class Generator extends generators.Base {
       ['config.xml', 'cordova/www/config.xml'],
       ['index.html', 'cordova/www/index.html']
     ]);
+  }
+  writing() {
 
     // build Cordova first, so we can override its settings afterwards
     const cordovaPath = this.destinationPath('dist/cordova');
@@ -94,6 +96,8 @@ class Generator extends generators.Base {
     setupCordova();
 
     // setup all templates files
+    const projectName = this.props.projectName;
+    const files = Generator.getFiles(projectName);
     for (var [key, value] of files.entries()) {
       const src = this.templatePath(key);
       const dest = this.destinationPath(`dist/${value}`);
