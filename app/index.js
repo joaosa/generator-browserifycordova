@@ -16,9 +16,7 @@ class Generator extends generators.Base {
       });
     });
   }
-  askFor() {
-    const cb = this.async();
-
+  prompting() {
     const moduleName = _.slugify(path.basename(process.cwd()));
 
     const config = gitconfig.sync();
