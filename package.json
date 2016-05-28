@@ -22,7 +22,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "cordova": "~3.1.0-0.1.0",
+    "cordova": "^6.2.0",
     "git-config": "0.0.7",
     "yeoman-generator": "^0.23.3"
   },
