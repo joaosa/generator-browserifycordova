@@ -15,8 +15,6 @@ class Generator extends generators.Base {
         skipInstall: options['skip-install']
       });
     });
-
-    this.pkg = require(path.join(__dirname, '../package.json'));
   }
   askFor() {
     const cb = this.async();
