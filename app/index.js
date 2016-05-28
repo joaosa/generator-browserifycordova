@@ -9,12 +9,6 @@ const _ = require('underscore.string');
 class Generator extends generators.Base {
   constructor(args, options) {
     super(args, options);
-
-    this.on('end', () => {
-      this.installDependencies({
-        skipInstall: options['skip-install']
-      });
-    });
   }
   prompting() {
     const moduleName = _.slugify(path.basename(process.cwd()));
@@ -54,49 +48,51 @@ class Generator extends generators.Base {
       default: 'MIT'
     }];
 
-    this.prompt(prompts, props => {
-      this.projectName = this._.slugify(props.name);
-      this.camelName = this._.camelize(props.name);
-      this.repoURL = props.homepage;
-      this.currentYear = new Date().getFullYear();
-      this.packageName = 'org.' + props.authorName.toLowerCase().split(' ').sort(-1).join('.');
-
-      this.props = props;
-
-      cb();
+    return this.prompt(prompts)
+    .then(props => {
+      this.props = Object.assign(props, {
+        projectName: _.slugify(props.name),
+        camelName: _.camelize(props.name),
+        repoURL: props.homepage,
+        currentYear: new Date().getFullYear(),
+        packageName: 'org.' + props.authorName.toLowerCase().split(' ').sort(-1).join('.'),
+      });
     });
   }
-  lib() {
-    this.mkdir('lib');
-    this.template(path.join('lib', 'project.js'), path.join('lib', this.projectName + '.js'));
-  }
-  test() {
-    this.mkdir('test');
-    this.template(path.join('test', 'project_test.js'), path.join('test', this.projectName + '_test.js'));
-  }
-  files() {
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
-    this.copy('gitignore', '.gitignore');
-    this.copy('travis.yml', '.travis.yml');
+  writing() {
+    const files = new Map([
+      // lib
+      ['lib/project.js', `lib/${this.props.projectName}.js`],
+      // test
+      ['test/project_test.js', `test/${this.props.projectName}_test.js`],
+      // config
+      ['editorconfig', '.editorconfig'],
+      ['travis.yml', '.travis.yml'],
+      ['gitignore', '.gitignore'],
+      ['jshintrc', '.jshintrc'],
+      ['_package.json', 'package.json'],
+      ['Gruntfile.js', 'Gruntfile.js'],
+      ['README.md', 'README.md'],
+      ['LICENSE', 'LICENSE'],
+      // cordova
+      ['config.xml', 'cordova/www/config.xml'],
+      ['index.html', 'cordova/www/index.html']
+    ]);
 
-    this.template('LICENSE', 'LICENSE');
-    this.template('README.md', 'README.md');
-    this.template('Gruntfile.js', 'Gruntfile.js');
-    this.template('_package.json', 'package.json');
-  }
-  build() {
-    this.mkdir('dist');
-    this.mkdir('cordova');
+    // build
+    const cordovaPath = this.destinationPath('cordova');
+    const cordovaSetup = this.fs.exists(`${cordovaPath}/config.xml`);
+    const setupCall = cordovaSetup ? () => {
+      this.log('A cordova project is already setup.');
+    } : cordova.create.bind(cordova, cordovaPath, this.packageName, this.projectName);
 
-    const cordovaPath = path.join(process.cwd(), 'cordova');
+    setupCall();
 
-    const cb = this.async();
-    cordova.create(cordovaPath, this.packageName, this.projectName, (function(self) {
-      self.template('config.xml', path.join(cordovaPath, 'www', 'config.xml'));
-      self.template('index.html', path.join(cordovaPath, 'www', 'index.html'));
-      cb();
-    }(this)));
+    for (var [key, value] of files.entries()) {
+      const src = this.templatePath(key);
+      const dest = this.destinationPath(value);
+      this.fs.copyTpl(src, dest, this.props);
+    }
   }
 }
 
