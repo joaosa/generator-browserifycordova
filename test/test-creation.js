@@ -1,36 +1,24 @@
 'use strict';
 
-var path    = require('path');
-var helpers = require('yeoman-test');
+const path = require('path');
+const helpers = require('yeoman-test');
+const assert = require('yeoman-assert');
 
-describe('browserifycordova generator', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {
-        return done(err);
-      }
-
-      this.app = helpers.createGenerator('browserifycordova:app', [
-        '../../app'
-      ]);
-      done();
-    }.bind(this));
+describe('browserifycordova generator', () => {
+  before(() => {
+    return helpers.run(path.join(__dirname, '../app'))
+      .withOptions({ 'skip-install': true })
+      .toPromise();
   });
 
-  it('creates expected files', function (done) {
+  it('creates expected files', done => {
     var expected = [
       // add files you expect to exist here.
       '.jshintrc',
       '.editorconfig'
     ];
 
-    helpers.mockPrompt(this.app, {
-      someOption: true
-    });
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFiles(expected);
-      done();
-    });
+    assert.file(expected);
+    done();
   });
 });
