@@ -2,19 +2,19 @@
   "name": "<%= projectName %>",
   "version": "0.0.0",
   "main": "lib/<%= projectName %>.js",
-  "description": "<%= props.description %>",
-  "homepage": "<%= props.homepage %>",
+  "description": "<%= description %>",
+  "homepage": "<%= homepage %>",
   "bugs": "<%= repoURL %>/issues",
   "author": {
-    "name": "<%= props.authorName %>",
-    "email": "<%= props.authorEmail %>"
+    "name": "<%= authorName %>",
+    "email": "<%= authorEmail %>"
   },
   "repository": {
     "type": "git",
     "url": "<%= repoURL %>"
   },
   "licenses": [{
-      "type": "<%= props.license %>",
+      "type": "<%= license %>",
       "url": "<%= repoURL %>/blob/master/LICENSE"
     }
   ],
