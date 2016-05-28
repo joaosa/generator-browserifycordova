@@ -8,22 +8,23 @@ const assert = require('yeoman-assert');
 const generator = require('../app/index');
 
 describe('browserifycordova generator', () => {
-  before(done => {
-    this.name = 'test';
+  const name = 'test';
+  var dir;
 
-    return helpers.run(path.join(__dirname, '../app'))
+  before(done => {
+    helpers.run(path.join(__dirname, '../app'))
       .withOptions({
-        name: this.name
+        name: name
       })
-    .inTmpDir(dir => {
-      this.dir = dir;
+    .inTmpDir(tmpDir => {
+      dir = tmpDir;
       fs.copy(path.join(__dirname, '../app/templates'), dir, done);
     });
   });
 
   it('creates expected files', done => {
-    const files = Array.from(generator.getFiles(this.name).keys());
-    const expected = files.map(file => `${this.dir}/${file}`);
+    const files = Array.from(generator.getFiles(name).keys());
+    const expected = files.map(file => `${dir}/${file}`);
 
     assert.file(expected);
     done();
