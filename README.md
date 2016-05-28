@@ -15,12 +15,12 @@ This [Yeoman](http://yeoman.io) generator was based on [eugeneware/generator-nod
 - Firstly, install:
   - the SDKs you fancy (i.e. Android, iOS, FirefoxOS, etc)
   - Apache Cordova `npm install -g cordova`
-  - Yo `$ npm install -g yo`
+  - Yo `npm install -g yo`
 
 - To install generator-browserifycordova from npm, run:
 
 ```
-$ npm install -g generator-browserifycordova
+npm install -g generator-browserifycordova
 ```
 
 - Finally, initiate the generator:
