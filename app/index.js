@@ -1,40 +1,38 @@
 'use strict';
 
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var gitconfig = require('git-config');
-var cordova = require('cordova');
+const path = require('path');
+const generators = require('yeoman-generator');
+const gitconfig = require('git-config');
+const cordova = require('cordova');
+const _ = require('underscore.string');
 
-var BrowserifycordovaGenerator = module.exports = function BrowserifycordovaGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+class Generator extends generators.Base {
+  constructor(args, options) {
+    super(args, options);
 
-  this.on('end', function() {
-    this.installDependencies({
-      skipInstall: options['skip-install']
+    this.on('end', () => {
+      this.installDependencies({
+        skipInstall: options['skip-install']
+      });
     });
-  });
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
+    this.pkg = require(path.join(__dirname, '../package.json'));
+  }
+  askFor() {
+    const cb = this.async();
 
-util.inherits(BrowserifycordovaGenerator, yeoman.generators.Base);
+    const moduleName = _.slugify(path.basename(process.cwd()));
 
-BrowserifycordovaGenerator.prototype.askFor = function askFor() {
-  var cb = this.async();
+    const config = gitconfig.sync();
+    const hasGitUser = config.github && config.github.user;
+    const hasName = config.user && config.user.name;
+    const hasEmail = config.user && config.user.email;
 
-  var moduleName = this._.slugify(path.basename(process.cwd()));
+    // have Yeoman greet the user.
+    console.log(this.yeoman +
+        'Check https://npmjs.org/doc/files/package.json.html for guidelines on how to name your project adequately.');
 
-  var config = gitconfig.sync();
-  var hasGitUser = config.github && config.github.user;
-  var hasName = config.user && config.user.name;
-  var hasEmail = config.user && config.user.email;
-
-  // have Yeoman greet the user.
-  console.log(this.yeoman +
-    'Check https://npmjs.org/doc/files/package.json.html for guidelines on how to name your project adequately.');
-
-  var prompts = [{
+    const prompts = [{
       'name': 'name',
       'message': 'Module name',
       'default': moduleName
@@ -63,53 +61,52 @@ BrowserifycordovaGenerator.prototype.askFor = function askFor() {
       'message': 'License',
       'default': 'MIT'
     }
-  ];
+    ];
 
-  this.prompt(prompts, function(props) {
-    this.projectName = this._.slugify(props.name);
-    this.camelName = this._.camelize(props.name);
-    this.repoURL = props.homepage;
-    this.currentYear = new Date().getFullYear();
-    this.packageName = 'org.' + props.authorName.toLowerCase().split(' ').sort(-1).join('.');
+    this.prompt(prompts, function(props) {
+      this.projectName = this._.slugify(props.name);
+      this.camelName = this._.camelize(props.name);
+      this.repoURL = props.homepage;
+      this.currentYear = new Date().getFullYear();
+      this.packageName = 'org.' + props.authorName.toLowerCase().split(' ').sort(-1).join('.');
 
-    this.props = props;
+      this.props = props;
 
-    cb();
-  }.bind(this));
-};
+      cb();
+    }.bind(this));
+  }
+  lib() {
+    this.mkdir('lib');
+    this.template(path.join('lib', 'project.js'), path.join('lib', this.projectName + '.js'));
+  }
+  test() {
+    this.mkdir('test');
+    this.template(path.join('test', 'project_test.js'), path.join('test', this.projectName + '_test.js'));
+  }
+  files() {
+    this.copy('editorconfig', '.editorconfig');
+    this.copy('jshintrc', '.jshintrc');
+    this.copy('gitignore', '.gitignore');
+    this.copy('travis.yml', '.travis.yml');
 
-BrowserifycordovaGenerator.prototype.lib = function lib() {
-  this.mkdir('lib');
-  this.template(path.join('lib', 'project.js'), path.join('lib', this.projectName + '.js'));
-};
+    this.template('LICENSE', 'LICENSE');
+    this.template('README.md', 'README.md');
+    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.template('_package.json', 'package.json');
+  }
+  build() {
+    this.mkdir('dist');
+    this.mkdir('cordova');
 
-BrowserifycordovaGenerator.prototype.test = function test() {
-  this.mkdir('test');
-  this.template(path.join('test', 'project_test.js'), path.join('test', this.projectName + '_test.js'));
-};
+    const cordovaPath = path.join(process.cwd(), 'cordova');
 
-BrowserifycordovaGenerator.prototype.files = function files() {
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc');
-  this.copy('gitignore', '.gitignore');
-  this.copy('travis.yml', '.travis.yml');
+    const cb = this.async();
+    cordova.create(cordovaPath, this.packageName, this.projectName, (function(self) {
+      self.template('config.xml', path.join(cordovaPath, 'www', 'config.xml'));
+      self.template('index.html', path.join(cordovaPath, 'www', 'index.html'));
+      cb();
+    }(this)));
+  }
+}
 
-  this.template('LICENSE', 'LICENSE');
-  this.template('README.md', 'README.md');
-  this.template('Gruntfile.js', 'Gruntfile.js');
-  this.template('_package.json', 'package.json');
-};
-
-BrowserifycordovaGenerator.prototype.build = function build() {
-  this.mkdir('dist');
-  this.mkdir('cordova');
-
-  var cordovaPath = path.join(process.cwd(), 'cordova');
-
-  var cb = this.async();
-  cordova.create(cordovaPath, this.packageName, this.projectName, (function(self) {
-    self.template('config.xml', path.join(cordovaPath, 'www', 'config.xml'));
-    self.template('index.html', path.join(cordovaPath, 'www', 'index.html'));
-    cb();
-  }(this)));
-};
+module.exports = Generator;
