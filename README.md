@@ -8,8 +8,6 @@ Your browserifiable apps can now be wrapped by Cordova and live on the mobile si
 
 It all boils down to having [Browserify](https://github.com/substack/node-browserify) convert your code to a bundle that is copied to the Cordova side, every `grunt watch` cycle. It can then be deployed to any of the supported mobile platforms with `grunt deploy`.
 
-This [Yeoman](http://yeoman.io) generator was based on [eugeneware/generator-nodejs](https://github.com/eugeneware/generator-nodejs), [yeoman/generator-node](https://github.com/yeoman/generator-nodel) and [dangeross/generator-cordova](https://github.com/dangeross/generator-cordova).
-
 ## Getting Started
 
 - Firstly, install:
@@ -29,10 +27,7 @@ npm install -g generator-browserifycordova
 yo browserifycordova
 ```
 
-## Getting To Know Yeoman
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
+- Satisfy the prompt's configurational demands and you're good to go
 
 ## License
 
