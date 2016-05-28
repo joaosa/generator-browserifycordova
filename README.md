@@ -29,6 +29,8 @@ yo browserifycordova
 
 - Satisfy the prompt's configurational demands and you're good to go
 
+- Don't forget to look inside the `dist` dir to make friends with your new project
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
