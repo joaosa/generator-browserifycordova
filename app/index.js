@@ -22,46 +22,41 @@ class Generator extends generators.Base {
     const moduleName = _.slugify(path.basename(process.cwd()));
 
     const config = gitconfig.sync();
-    const hasGitUser = config.github && config.github.user;
-    const hasName = config.user && config.user.name;
-    const hasEmail = config.user && config.user.email;
-
-    // have Yeoman greet the user.
-    console.log(this.yeoman +
-        'Check https://npmjs.org/doc/files/package.json.html for guidelines on how to name your project adequately.');
+    const githubUser = config.github ? config.github.user: '';
+    const name = config.user ? config.user.name : '';
+    const email = config.user ? config.user.email : '';
 
     const prompts = [{
-      'name': 'name',
-      'message': 'Module name',
-      'default': moduleName
+      name: 'name',
+      message: 'Module name',
+      default: moduleName
     }, {
-      'name': 'description',
-      'message': 'Module description',
-      'default': 'The best project ever.'
+      name: 'description',
+      message: 'Module description',
+      default: 'The best project ever.'
     }, {
-      'name': 'githubUsername',
-      'message': 'Your Github username',
-      'default': hasGitUser || ''
+      name: 'githubUsername',
+      message: 'Your Github username',
+      default: githubUser
     }, {
-      'name': 'authorName',
-      'message': 'Your name',
-      'default': hasName || ''
+      name: 'authorName',
+      message: 'Your name',
+      default: name
     }, {
-      'name': 'authorEmail',
-      'message': 'Your email',
-      'default': hasEmail || ''
+      name: 'authorEmail',
+      message: 'Your email',
+      default: email
     }, {
-      'name': 'homepage',
-      'message': 'Module homepage',
-      'default': (hasGitUser && 'https://github.com/' + config.github.user + '/' + moduleName) || ''
+      name: 'homepage',
+      message: 'Module homepage',
+      default: `https://github.com/${githubUser}/${moduleName}`
     }, {
-      'name': 'license',
-      'message': 'License',
-      'default': 'MIT'
-    }
-    ];
+      name: 'license',
+      message: 'License',
+      default: 'MIT'
+    }];
 
-    this.prompt(prompts, function(props) {
+    this.prompt(prompts, props => {
       this.projectName = this._.slugify(props.name);
       this.camelName = this._.camelize(props.name);
       this.repoURL = props.homepage;
@@ -71,7 +66,7 @@ class Generator extends generators.Base {
       this.props = props;
 
       cb();
-    }.bind(this));
+    });
   }
   lib() {
     this.mkdir('lib');
