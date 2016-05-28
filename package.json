@@ -2,6 +2,9 @@
   "name": "generator-browserifycordova",
   "version": "0.1.2",
   "description": "A generator for Yeoman",
+  "files": [
+    "app"
+  ],
   "keywords": [
     "yeoman-generator",
     "cordova",
@@ -27,15 +30,6 @@
     "mocha": "^2.5.3",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.4.0"
-  },
-  "engines": {
-    "node": ">=0.8.0",
-    "npm": ">=1.2.10"
-  },
-  "gitHead": "367811ad15b0aa1d34563b560ee765cc58ab5d1f",
-  "readmeFilename": "README.md",
-  "directories": {
-    "test": "test"
   },
   "license": "MIT"
 }
