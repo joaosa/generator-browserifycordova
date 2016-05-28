@@ -89,7 +89,7 @@ class Generator extends generators.Base {
     } : () => {
       mkdirp.sync('dist');
       cordova.create(cordovaPath, this.packageName, this.projectName);
-    }
+    };
 
     setupCordova();
 
