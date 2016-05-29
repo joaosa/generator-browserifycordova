@@ -7,18 +7,18 @@ const assert = require('yeoman-assert');
 
 describe('browserifycordova generator', () => {
   const name = 'test';
-  const srcDir = process.env.GEN_DIR;
-  const generator = require(`../${srcDir}/index`);
+  const srcDir = `../generators/${process.env.GEN_DIR}`;
+  const generator = require(`${srcDir}/index`);
   var dir;
 
   before(done => {
-    helpers.run(path.join(__dirname, `../${srcDir}`))
+    helpers.run(path.join(__dirname, srcDir))
       .withOptions({
         name: name
       })
     .inTmpDir(tmpDir => {
       dir = tmpDir;
-      fs.copy(path.join(__dirname, `../${srcDir}/templates`), dir, done);
+      fs.copy(path.join(__dirname, `${srcDir}/templates`), dir, done);
     });
   });
 

@@ -24,7 +24,7 @@
     "copy-files": "cp -r generators/src generators/app",
     "compile": "npm run copy-files && node_modules/.bin/babel --presets es2015 -o generators/app/index.js generators/app/index.js",
     "prepublish": "npm run compile",
-    "test": "npm run compile && GEN_DIR=app mocha --require babel-register"
+    "test": "npm run compile && GEN_DIR=app mocha --compilers js:babel-register"
   },
   "dependencies": {
     "cordova": "^6.2.0",
