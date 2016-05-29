@@ -9,16 +9,17 @@ const generator = require('../app/index');
 
 describe('browserifycordova generator', () => {
   const name = 'test';
+  const srcDir = process.env.GEN_DIR;
   var dir;
 
   before(done => {
-    helpers.run(path.join(__dirname, '../app'))
+    helpers.run(path.join(__dirname, `../${srcDir}`))
       .withOptions({
         name: name
       })
     .inTmpDir(tmpDir => {
       dir = tmpDir;
-      fs.copy(path.join(__dirname, '../app/templates'), dir, done);
+      fs.copy(path.join(__dirname, `../${srcDir}/templates`), dir, done);
     });
   });
 

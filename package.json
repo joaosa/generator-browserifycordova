@@ -19,7 +19,11 @@
     "url": "git://github.com/joaosa/generator-browserifycordova.git"
   },
   "scripts": {
-    "test": "mocha --require babel-register"
+    "clean": "rm -rf build",
+    "copy-files": "cp -r app build",
+    "compile": "npm run copy-files && node_modules/.bin/babel --presets es2015 -o build/index.js build/index.js",
+    "prepublish": "npm run compile",
+    "test": "npm run compile && GEN_DIR=build mocha --require babel-register"
   },
   "dependencies": {
     "cordova": "^6.2.0",
