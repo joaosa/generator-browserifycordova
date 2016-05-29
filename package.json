@@ -3,7 +3,8 @@
   "version": "0.1.2",
   "description": "A generator for Yeoman",
   "files": [
-    "app"
+    "generators/app",
+    "generators/src"
   ],
   "keywords": [
     "yeoman-generator",
@@ -19,11 +20,11 @@
     "url": "git://github.com/joaosa/generator-browserifycordova.git"
   },
   "scripts": {
-    "clean": "rm -rf build",
-    "copy-files": "cp -r app build",
-    "compile": "npm run copy-files && node_modules/.bin/babel --presets es2015 -o build/index.js build/index.js",
+    "clean": "rm -rf generators/app",
+    "copy-files": "cp -r generators/src generators/app",
+    "compile": "npm run copy-files && node_modules/.bin/babel --presets es2015 -o generators/app/index.js generators/app/index.js",
     "prepublish": "npm run compile",
-    "test": "npm run compile && GEN_DIR=build mocha --require babel-register"
+    "test": "npm run compile && GEN_DIR=app mocha --require babel-register"
   },
   "dependencies": {
     "cordova": "^6.2.0",

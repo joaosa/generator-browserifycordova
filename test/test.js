@@ -5,11 +5,10 @@ const path = require('path');
 const helpers = require('yeoman-test');
 const assert = require('yeoman-assert');
 
-const generator = require('../app/index');
-
 describe('browserifycordova generator', () => {
   const name = 'test';
   const srcDir = process.env.GEN_DIR;
+  const generator = require(`../${srcDir}/index`);
   var dir;
 
   before(done => {
